@@ -3,6 +3,10 @@
 > **This file is for any AI agent / Kiro session** helping the learner. Read it fully
 > before doing anything. It exists so that *any new session* can continue the plan
 > seamlessly, exactly as designed.
+>
+> 📌 **ALSO READ [`PROJECT-STATUS.md`](./PROJECT-STATUS.md) FIRST** — it's the live
+> checkpoint of exactly where we are (learning position + the Study Buddy automation
+> that is now built and running).
 
 ---
 
@@ -38,33 +42,39 @@
 ## 3. How the repo is organized
 
 ```
-README.md              → simple front door
-START-HERE.md          → the daily pointer ("you are on Week X · Day Y")
-PROGRESS.md            → streak, current day, checklist, logs
-AGENT-GUIDE.md         → this file
+README.md            → simple front door
+START-HERE.md        → the daily pointer
+PROGRESS.md          → streak, checklist, logs (the bot appends here)
+PROJECT-STATUS.md    → LIVE checkpoint — read this to resume
+AGENT-GUIDE.md       → this file
 plan/
-  full-plan.md         → the COMPLETE journey: every phase + week-by-week map
-  tools.md             → deep tool catalog (Kiro, GitHub, z.ai, Supabase, Cloudflare…)
-  best-resources.md    → best courses / certificates / diplomas with links
-  daily-template.md    → the exact template to use when writing new day cards
+  full-plan.md       → the COMPLETE journey: every phase + week-by-week map
+  tools.md           → deep tool catalog (Kiro, GitHub, z.ai, Supabase, Cloudflare…)
+  best-resources.md  → best courses / certificates / diplomas with links
+  daily-template.md  → template for new day cards
 daily/
-  week-01.md           → 6 day-cards (Day 1–6)
-  week-02.md           → 6 day-cards
-  week-03.md           → 6 day-cards
-  (week-04.md … )      → GENERATED AHEAD OF THE LEARNER as they progress
+  day-001.md … 006   → BOT-READY per-day cards (what the Telegram bot sends)
+  week-01/02/03.md   → human weekly cards (02 & 03 still need converting to day files)
+automation/          → the Study Buddy Telegram bot (BUILT & LIVE — see PROJECT-STATUS.md)
+  state.json         → live current day + streak (bot reads/writes)
+  worker/src/index.js → the Worker code (the brain)
 ```
+
+> **Content note:** the Telegram bot delivers `daily/day-XXX.md` files (3-digit,
+> global day number, with frontmatter). New content must be created as `day-XXX.md`
+> files, not just week files. Keep the buffer weeks ahead and bump
+> `automation/state.json`'s `totalDaysGenerated`.
 
 ## 4. Your job when the learner returns
 
-1. **Find current position:** read `START-HERE.md` and `PROGRESS.md`.
+1. **Read [`PROJECT-STATUS.md`](./PROJECT-STATUS.md)** and **`automation/state.json`** to
+   find the live current day + streak.
 2. **If today's card exists:** walk them through it (learn → practice → checklist).
-3. **If they're within ~3 days of the last built week:** build the **next week** of
-   day cards using [`plan/daily-template.md`](./plan/daily-template.md), following the
-   week-by-week map in [`plan/full-plan.md`](./plan/full-plan.md). Always keep the
-   learner ~2–3 weeks of runway.
-4. **Update pointers:** advance the "You are on" line in `START-HERE.md` and tick
-   `PROGRESS.md`.
-5. **Commit** the changes with a clear message and push to a branch / update the PR.
+3. **Keep content ahead:** if the buffer is within ~1–2 weeks of `currentDay`, generate
+   the next batch of `day-XXX.md` cards using [`plan/daily-template.md`](./plan/daily-template.md)
+   and the map in [`plan/full-plan.md`](./plan/full-plan.md); bump `totalDaysGenerated`.
+4. **Commit directly to `main`.** ⚠️ **PULL before you PUSH** — the live Worker commits
+   to this repo on its own, so a stale local copy will be rejected. Never commit secrets.
 
 ## 5. Rules for writing NEW day cards (critical for consistency)
 

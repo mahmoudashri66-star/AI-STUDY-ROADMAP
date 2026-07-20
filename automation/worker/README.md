@@ -75,12 +75,22 @@ npx wrangler dev
 
 ---
 
+## ✅ Deployed via the Cloudflare dashboard (browser)
+
+This bot is **live**, deployed through the Cloudflare **browser dashboard** (single-file
+paste of `src/index.js`), not the Wrangler CLI. The CLI steps above still work if you
+ever set up a local dev environment. **To update the code:** push `src/index.js` to
+`main`, then re-paste it into the dashboard editor and click **Deploy**. Secrets and the
+4 cron triggers are configured in the dashboard.
+
 ## 🗺️ Build progress
 
-- [x] **Phase 1:** scaffold — plumbing, security, commands reply, health check, timers
-- [ ] **Phase 2:** MVP — morning card + `/done` (streak + GitHub updates)
-- [ ] **Phase 3:** evening reminder + `/today` `/status` `/note` `/skip`
-- [ ] **Phase 4:** weekly summary, milestone celebrations, buffer alerts
-- [ ] **Phase 6:** hardening + full plain-English walkthrough
+- [x] **Phase 1:** scaffold — plumbing, security, commands reply, health check, timers ✅
+- [x] **Phase 2:** MVP — morning card + `/done` (streak + GitHub updates) ✅ **tested**
+- [x] **Phase 3 (early):** evening reminder + `/today` `/status` `/note` `/skip` ✅
+- [ ] **Phase 4:** weekly (Sunday) summary + low-buffer alert  *(week-complete message done)*
+- [ ] **Phase 5:** generate all daily content (Weeks 2–52) as `day-XXX.md` files
+- [ ] **Phase 6:** write-conflict retry + plain-English walkthrough (learner explains it back)
 
-See the full plan in [`../spec/implementation-plan.md`](../spec/implementation-plan.md).
+See the full plan in [`../spec/implementation-plan.md`](../spec/implementation-plan.md)
+and the live checkpoint in [`../../PROJECT-STATUS.md`](../../PROJECT-STATUS.md).
