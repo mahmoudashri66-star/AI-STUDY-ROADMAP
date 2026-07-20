@@ -1,0 +1,5 @@
+# Never commit these — they contain secrets or are generated
+node_modules/
+.wrangler/
+.dev.vars
+*.log

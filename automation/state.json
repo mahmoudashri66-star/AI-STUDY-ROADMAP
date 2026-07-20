@@ -1,0 +1,17 @@
+{
+  "currentDay": 1,
+  "totalDaysGenerated": 18,
+  "streak": 0,
+  "longestStreak": 0,
+  "totalDaysCompleted": 0,
+  "restDays": 0,
+  "lastCompletedDate": null,
+  "lastActionDate": null,
+  "lastMorningSentDate": null,
+  "lastReminderSentDate": null,
+  "lastWeeklySummaryDate": null,
+  "timezone": "Africa/Cairo",
+  "morningHour": 7,
+  "reminderHour": 20,
+  "reminderMinute": 30
+}

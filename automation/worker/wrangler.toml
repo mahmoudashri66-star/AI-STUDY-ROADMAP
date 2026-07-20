@@ -1,0 +1,37 @@
+# ┌─────────────────────────────────────────────────────────────────────────┐
+# │  wrangler.toml — the configuration for your Cloudflare Worker              │
+# │  (Wrangler is Cloudflare's command-line tool for building/deploying)      │
+# └─────────────────────────────────────────────────────────────────────────┘
+
+name = "study-buddy"              # the name of your Worker on Cloudflare
+main = "src/index.js"             # the code file that runs
+compatibility_date = "2025-06-01" # locks the Workers runtime behavior to this date
+
+# --- Timers (Cron Triggers) ---------------------------------------------------
+# Cloudflare fires these in UTC time. Egypt is UTC+2 (winter) or UTC+3 (summer),
+# so we register BOTH candidate times; the code checks the real Cairo time and
+# only acts at the right moment (this makes daylight-saving handled automatically).
+#
+#   Morning 07:00 Cairo  ->  05:00 UTC (winter) or 04:00 UTC (summer)
+#   Evening 20:30 Cairo  ->  18:30 UTC (winter) or 17:30 UTC (summer)
+[triggers]
+crons = [
+  "0 4 * * *",   # morning candidate (summer)
+  "0 5 * * *",   # morning candidate (winter)
+  "30 17 * * *", # evening candidate (summer)
+  "30 18 * * *"  # evening candidate (winter)
+]
+
+# --- Non-secret configuration -------------------------------------------------
+# These are safe to keep in the repo (they are not passwords).
+[vars]
+GITHUB_REPO = "mahmoudashri66-star/AI-STUDY-ROADMAP"
+GITHUB_BRANCH = "main"
+TIMEZONE = "Africa/Cairo"
+
+# --- Secrets (NEVER put real values here) -------------------------------------
+# These are set with the command line, so they never end up in the repo:
+#   wrangler secret put TELEGRAM_BOT_TOKEN
+#   wrangler secret put TELEGRAM_CHAT_ID
+#   wrangler secret put TELEGRAM_WEBHOOK_SECRET
+#   wrangler secret put GITHUB_TOKEN

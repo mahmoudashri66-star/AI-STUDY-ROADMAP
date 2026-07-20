@@ -1,0 +1,18 @@
+# ─────────────────────────────────────────────────────────────────────────
+# EXAMPLE secrets file. Copy this to ".dev.vars" for LOCAL testing only.
+# .dev.vars is git-ignored so your real secrets never get committed.
+# In production, these are set with `wrangler secret put NAME` instead.
+# ─────────────────────────────────────────────────────────────────────────
+
+# From @BotFather when you create your bot:
+TELEGRAM_BOT_TOKEN="123456:ABC-your-bot-token-here"
+
+# Your personal Telegram chat id (we'll find this together):
+TELEGRAM_CHAT_ID="123456789"
+
+# Any random password you invent — Telegram sends it back so we know
+# a webhook request is really from Telegram (protects your bot):
+TELEGRAM_WEBHOOK_SECRET="make-up-a-long-random-string"
+
+# A GitHub fine-grained token (this repo only, Contents: read & write):
+GITHUB_TOKEN="github_pat_your_token_here"
