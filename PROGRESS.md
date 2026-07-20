@@ -53,6 +53,7 @@
 
 ## 📝 Daily log (newest at top)
 
+- 2026-07-21 — Day 1 ✅ completed
 > Format: `Date — Week X Day Y — what I did / what clicked`
 
 - _(your first entry goes here)_
