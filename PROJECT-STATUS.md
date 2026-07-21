@@ -65,17 +65,16 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-126.md`
-  (**Weeks 1–21**: Phase 0 + Phase 1 + Phase 2 + Phase 3 through PyTorch).
-  All **free-first**. Buffer ≈ **21 weeks (~5 months)** ahead.
-  - Phase 3 so far (Wk18–21): what a neural net is (3B1B) → build a neuron/net by hand
-    (Karpathy micrograd) → gradients → backpropagation (built from scratch) →
-    training loop → activations → PyTorch tensors/autograd → rebuild the net in PyTorch.
-- ⬜ **Not yet generated:** Weeks 22–52 (rest of Phase 3 → Phases 4–6).
-  Next batch: **Week 22** — training deeper nets in PyTorch, then Wk23 embeddings,
-  Wk24 tokens/tokenization, Wk25–26 attention & transformers, Wk27 build a tiny GPT +
-  `how-llms-work.md` capstone. Free-first: Karpathy Zero-to-Hero, Jay Alammar's
-  Illustrated Transformer, Hugging Face LLM course, 3Blue1Brown.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-150.md`
+  (**Weeks 1–25**: Phase 0 + Phase 1 + Phase 2 + Phase 3 through attention/transformers).
+  All **free-first**. Buffer ≈ **25 weeks (~6 months)** ahead.
+  - Phase 3 so far (Wk18–25): neural nets → build by hand + backprop (Karpathy) →
+    PyTorch → training deep nets → embeddings (+ semantic search) → tokens/tokenization
+    → attention, Q/K/V, multi-head, the transformer block.
+- ⬜ **Not yet generated:** Weeks 26–52 (rest of Phase 3 → Phases 4–6).
+  Next batch: **Week 26** — build a tiny GPT with Karpathy ("Let's build GPT"), then
+  Wk27 Phase 3 capstone + `how-llms-work.md` (Milestone 4). Then Phase 4 (LLM apps/
+  APIs/RAG). Free-first: Karpathy Zero-to-Hero, Hugging Face LLM course.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
