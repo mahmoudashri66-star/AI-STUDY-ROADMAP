@@ -1,6 +1,6 @@
 # 📌 PROJECT STATUS — Checkpoint (resume here)
 
-> **Last updated:** 20–21 July 2026 (end of session).
+> **Last updated:** 21 July 2026 (end of session 2).
 > **Read this first** to resume the project in any new session. It captures exactly
 > where we are, what's built, and what's next — for both the **learning plan** and the
 > **Study Buddy automation**.
@@ -9,10 +9,14 @@
 
 ## 🟢 Where we are right now (one glance)
 
-- **Learning:** about to start **Week 1 · Day 1** for real (the map of AI). The learner
-  is studying Day 1 now. State was reset to a clean Day 1 after testing.
-- **Automation (Study Buddy Telegram bot):** ✅ **BUILT, DEPLOYED, AND TESTED — LIVE.**
-  The full daily loop works end to end.
+- **Learning:** on **Week 1 · Day 1** (the map of AI). The learner is studying Day 1
+  now using the **free** resource (see access note below). Not yet marked `/done`
+  (`streak: 0`, `currentDay: 1`).
+- **Automation (Study Buddy Telegram bot):** ✅ **BUILT, DEPLOYED, TESTED — LIVE.**
+  ☀️ **The 7:00 AM auto-delivery fired successfully on 2026-07-21** — real-world timer
+  test PASSED. The full daily loop works end to end.
+- **Content:** Week 1 (`day-001..006`) is now **free-first** after the Coursera Plus
+  gap in Egypt (see access note at the bottom of this file).
 
 ---
 
