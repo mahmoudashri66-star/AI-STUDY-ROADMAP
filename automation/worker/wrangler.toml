@@ -15,12 +15,10 @@ compatibility_date = "2025-06-01" # locks the Workers runtime behavior to this d
 #   Morning 07:00 Cairo  ->  05:00 UTC (winter) or 04:00 UTC (summer)
 #   Evening 20:30 Cairo  ->  18:30 UTC (winter) or 17:30 UTC (summer)
 [triggers]
-crons = [
-  "0 4 * * *",   # morning candidate (summer)
-  "0 5 * * *",   # morning candidate (winter)
-  "30 17 * * *", # evening candidate (summer)
-  "30 18 * * *"  # evening candidate (winter)
-]
+# Fires every :00 and :30 (UTC). The Worker checks the real Cairo time against
+# state.json (morningHour + reminderHour:reminderMinute) and only sends at the right
+# moment. This makes /settime work for ANY hour, and daylight saving is handled in code.
+crons = ["0,30 * * * *"]
 
 # --- Non-secret configuration -------------------------------------------------
 # These are safe to keep in the repo (they are not passwords).

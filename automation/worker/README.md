@@ -94,3 +94,30 @@ ever set up a local dev environment. **To update the code:** push `src/index.js`
 
 See the full plan in [`../spec/implementation-plan.md`](../spec/implementation-plan.md)
 and the live checkpoint in [`../../PROJECT-STATUS.md`](../../PROJECT-STATUS.md).
+
+
+---
+
+## 💬 Commands (v2)
+
+**Learning:** `/today` · `/done` · `/status` · `/note <text>` · `/skip`
+**Backlog:** `/learn <topic>` (capture) · `/backlog` (list) · `/drop <n>` (remove)
+**Control:** `/pause` · `/resume` · `/settime <hour>` (0–23, Cairo)
+**Help:** `/help` or `/menu`
+
+- **Backlog** items are saved to `learning-backlog.md` in the repo. They do **not**
+  disrupt the daily sequence — Kiro turns them into **bonus lessons** in a session.
+- **/pause** sets `state.paused = true`; timers send nothing until **/resume**.
+- **/settime** updates `state.morningHour`. For it to work at *any* hour, the cron must
+  be `0,30 * * * *` (see below).
+
+## 🔁 Updating the deployed bot (v1 → v2)
+
+Because we deploy via the Cloudflare dashboard, apply updates like this:
+1. **Re-paste the code:** copy the latest `src/index.js` from GitHub into the Worker's
+   dashboard editor → **Deploy**.
+2. **Update the cron trigger** (Settings → Triggers → Cron Triggers): remove the old
+   four crons and add a single one: **`0,30 * * * *`**. This lets `/settime` work for any
+   hour. (The bot still works at the default 07:00 / 20:30 even with the old crons.)
+
+No new secrets are needed for v2.

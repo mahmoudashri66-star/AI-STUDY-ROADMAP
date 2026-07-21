@@ -99,3 +99,23 @@ Workers, and GitHub. (Details in the [Design](./spec/design.md#cost).)
 **This is the plan, awaiting your approval.** Once you say "go," we follow the
 [Implementation Plan](./spec/implementation-plan.md) — starting by creating your Telegram
 bot and Cloudflare account together, click by click.
+
+
+---
+
+## 🆕 v2 — Backlog & Control commands
+
+Beyond the daily loop, Study Buddy now lets you steer your learning from Telegram:
+
+| You type | What happens |
+|---|---|
+| `/learn <topic>` | Captures something you want to learn into your **backlog** (doesn't disrupt the plan) |
+| `/backlog` | Lists your saved topics |
+| `/drop <n>` | Removes backlog item number `n` |
+| `/pause` / `/resume` | Vacation mode — stop / restart daily cards (streak stays safe) |
+| `/settime <hour>` | Set your morning card time (0–23, Cairo) |
+| `/help` or `/menu` | Show the full command list anytime |
+
+**How backlog → lessons works:** you capture freely with `/learn`; your mentor (Kiro)
+turns backlog items into high-quality **bonus lessons** at the right time (respecting
+prerequisites), so your main sequence and quality are never disrupted.

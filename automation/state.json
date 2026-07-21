@@ -5,6 +5,7 @@
   "longestStreak": 0,
   "totalDaysCompleted": 0,
   "restDays": 0,
+  "paused": false,
   "lastCompletedDate": null,
   "lastActionDate": null,
   "lastMorningSentDate": "2026-07-21",

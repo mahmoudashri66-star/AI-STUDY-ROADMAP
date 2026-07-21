@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════
-//  STUDY BUDDY — Cloudflare Worker  (Phase 2: the working MVP)
+//  STUDY BUDDY — Cloudflare Worker  (v2: learning + backlog + controls)
 //
 //  This one file is "the brain." It wakes up two ways:
 //    1) fetch()     -> when YOU message the bot (Telegram calls our webhook)
@@ -8,19 +8,19 @@
 //  It reads your lessons + progress from GitHub and writes progress back.
 //  Everything is commented in plain English on purpose — no black box.
 //
-//  WHAT WORKS NOW:
-//    /today  -> sends the current day's lesson
-//    /status -> shows day, streak, total
-//    /done   -> marks day complete, updates streak, logs to GitHub, advances
-//    /note   -> saves a reflection to PROGRESS.md
-//    /skip   -> rest day (streak protected)
-//    morning (07:00 Cairo) -> sends today's card
-//    evening (20:30 Cairo) -> reminder if not done yet
+//  COMMANDS:
+//    Learning:  /today  /done  /status  /note <text>  /skip
+//    Backlog:   /learn <topic>   /backlog   /drop <n>
+//    Control:   /pause  /resume  /settime <hour>
+//    Help:      /help   /menu
+//  Timers: morning card at state.morningHour, reminder at reminderHour:reminderMinute
+//          (Cairo time; skipped when state.paused is true)
 // ═══════════════════════════════════════════════════════════════════════════
 
 // --- Where things live in your GitHub repo -----------------------------------
 const STATE_PATH = "automation/state.json";
 const PROGRESS_PATH = "PROGRESS.md";
+const BACKLOG_PATH = "learning-backlog.md";
 const dayPath = (n) => `daily/day-${String(n).padStart(3, "0")}.md`;
 const GITHUB_API = "https://api.github.com";
 
@@ -55,32 +55,59 @@ export default {
 };
 
 // ═══════════════════════════════════════════════════════════════════════════
-//  COMMANDS (what happens when you type /done, /today, etc.)
+//  COMMANDS
 // ═══════════════════════════════════════════════════════════════════════════
 async function handleCommand(text, env) {
   const command = text.split(/\s+/)[0].toLowerCase();
   const args = text.slice(command.length).trim();
   try {
     switch (command) {
-      case "/start":
-        return sendMessage(env,
-          "👋 Welcome to Study Buddy!\n\n" +
-          "▶️ /today — today's lesson\n" +
-          "✅ /done — finish today (updates your streak)\n" +
-          "📊 /status — your progress\n" +
-          "📝 /note <text> — save a reflection\n" +
-          "🛌 /skip — rest day\n\nLet's learn! 🚀");
+      // learning
+      case "/start":  return sendMessage(env, "👋 Welcome to Study Buddy!\n\n" + helpText());
       case "/today":  return await handleToday(env);
       case "/status": return await handleStatus(env);
       case "/done":   return await handleDone(env);
       case "/note":   return await handleNote(env, args);
       case "/skip":   return await handleSkip(env);
-      default:        return sendMessage(env, "I know: /today /done /status /note /skip");
+      // backlog
+      case "/learn":  return await handleLearn(env, args);
+      case "/backlog":return await handleBacklog(env);
+      case "/drop":   return await handleDrop(env, args);
+      // control
+      case "/pause":  return await handlePause(env);
+      case "/resume": return await handleResume(env);
+      case "/settime":return await handleSetTime(env, args);
+      // help
+      case "/help":
+      case "/menu":   return sendMessage(env, helpText());
+      default:        return sendMessage(env, "I didn't recognize that. Here's what I can do:\n\n" + helpText());
     }
   } catch (e) {
     console.log("command error:", e);
     return sendMessage(env, `⚠️ Something went wrong with ${command}. (${e.message})`);
   }
+}
+
+// The one place that lists every command (used by /help, /menu, /start, unknown).
+function helpText() {
+  return (
+    "🤖 Study Buddy — your commands\n\n" +
+    "📚 Learning\n" +
+    "▶️ /today — today's lesson\n" +
+    "✅ /done — finish today (streak +1)\n" +
+    "📊 /status — day, streak & progress\n" +
+    "📝 /note <text> — save a reflection\n" +
+    "🛌 /skip — rest day (streak stays safe)\n\n" +
+    "📥 Backlog — capture things to learn later\n" +
+    "➕ /learn <topic> — save something you want to learn\n" +
+    "📋 /backlog — see your saved topics\n" +
+    "🗑️ /drop <number> — remove a backlog item\n\n" +
+    "⚙️ Control\n" +
+    "⏸️ /pause — stop daily cards (vacation mode)\n" +
+    "▶️ /resume — turn daily cards back on\n" +
+    "⏰ /settime <hour> — set morning time, 0–23 (Cairo)\n\n" +
+    "❓ /help or /menu — show this list"
+  );
 }
 
 async function handleToday(env) {
@@ -99,30 +126,25 @@ async function handleStatus(env) {
     `🔥 Streak: ${state.streak} day(s)  (best: ${state.longestStreak})\n` +
     `✅ Completed: ${state.totalDaysCompleted} day(s)\n` +
     (state.restDays ? `🛌 Rest days: ${state.restDays}\n` : "") +
+    (state.paused ? `⏸️ Delivery is PAUSED (use /resume)\n` : "") +
     `\n${doneToday ? "Today is done — nice! 😴" : "Today isn't done yet. Reply /done when you finish."}`);
 }
 
 async function handleDone(env) {
   const today = cairoNow().date;
   const { state, sha } = await readState(env);
-
   if (state.lastCompletedDate === today) {
     return sendMessage(env, `✅ You already finished today! Rest up. 🔥 Streak: ${state.streak}`);
   }
-
-  // Streak: consecutive day keeps it going; a gap resets it.
   state.streak = state.lastCompletedDate === prevDate(today) ? state.streak + 1 : 1;
   if (state.streak > state.longestStreak) state.longestStreak = state.streak;
-
   const completedDay = state.currentDay;
   state.totalDaysCompleted += 1;
   state.lastCompletedDate = today;
   state.lastActionDate = today;
   state.currentDay += 1;
-
   await writeState(env, state, sha, `Day ${completedDay} complete (via /done)`);
   await addProgressLine(env, `- ${today} — Day ${completedDay} ✅ completed`);
-
   let reply = `✅ Day ${completedDay} done — great work!\n🔥 Streak: ${state.streak} day(s)`;
   if (completedDay % 6 === 0) reply += `\n\n🎉 A full week complete! Week ${completedDay / 6} down. Proud of you.`;
   const next = await getDayCard(env, state.currentDay);
@@ -149,21 +171,88 @@ async function handleSkip(env) {
   return sendMessage(env, `🛌 Rest day logged — your 🔥 streak (${state.streak}) is safe. See you tomorrow!`);
 }
 
+// ── Backlog commands ─────────────────────────────────────────────────────────
+async function handleLearn(env, topic) {
+  if (!topic) return sendMessage(env, "📥 Use it like: /learn how to fine-tune an LLM");
+  const today = cairoNow().date;
+  const f = await githubGet(env, BACKLOG_PATH);
+  const header = "# 📥 Learning Backlog\n\nTopics I want to learn (captured via /learn). Your mentor (Kiro) turns these into bonus lessons.\n";
+  let text = f ? f.text : header;
+  text = text.replace(/\s+$/, "") + `\n- ${today} — ${topic}\n`;
+  await githubPut(env, BACKLOG_PATH, text, `Backlog: add "${topic}"`, f ? f.sha : undefined);
+  return sendMessage(env, `📥 Captured! Added to your backlog:\n"${topic}"\n\nSee everything with /backlog. Your mentor will turn these into bonus lessons.`);
+}
+
+async function handleBacklog(env) {
+  const items = await readBacklogItems(env);
+  if (!items.length) return sendMessage(env, "📥 Your backlog is empty. Capture something with:\n/learn <topic>");
+  const list = items.map((it, i) => `${i + 1}. ${it}`).join("\n");
+  return sendMessage(env, `📥 Your learning backlog (${items.length}):\n\n${list}\n\n🗑️ Remove one with /drop <number>.`);
+}
+
+async function handleDrop(env, arg) {
+  const n = parseInt(arg, 10);
+  if (!n) return sendMessage(env, "🗑️ Use it like: /drop 2  (the number shown in /backlog)");
+  const f = await githubGet(env, BACKLOG_PATH);
+  if (!f) return sendMessage(env, "📥 Your backlog is empty.");
+  const lines = f.text.split("\n");
+  const itemIdx = lines.map((l, i) => (l.startsWith("- ") ? i : -1)).filter((i) => i >= 0);
+  if (n < 1 || n > itemIdx.length) return sendMessage(env, `There's no item ${n}. You have ${itemIdx.length}.`);
+  const removed = lines[itemIdx[n - 1]].replace(/^- /, "").trim();
+  lines.splice(itemIdx[n - 1], 1);
+  await githubPut(env, BACKLOG_PATH, lines.join("\n"), `Backlog: drop item ${n}`, f.sha);
+  return sendMessage(env, `🗑️ Removed:\n"${removed}"`);
+}
+
+async function readBacklogItems(env) {
+  const f = await githubGet(env, BACKLOG_PATH);
+  if (!f) return [];
+  return f.text.split("\n").filter((l) => l.startsWith("- ")).map((l) => l.replace(/^- /, "").trim());
+}
+
+// ── Control commands ─────────────────────────────────────────────────────────
+async function handlePause(env) {
+  const { state, sha } = await readState(env);
+  state.paused = true;
+  await writeState(env, state, sha, "Pause daily delivery");
+  return sendMessage(env, "⏸️ Paused. I won't send daily cards until you /resume. Your streak & progress are safe.");
+}
+
+async function handleResume(env) {
+  const { state, sha } = await readState(env);
+  state.paused = false;
+  await writeState(env, state, sha, "Resume daily delivery");
+  return sendMessage(env, "▶️ Resumed! Daily cards are back on. Welcome back. 🔥");
+}
+
+async function handleSetTime(env, arg) {
+  const h = parseInt(arg, 10);
+  if (isNaN(h) || h < 0 || h > 23) return sendMessage(env, "⏰ Use it like: /settime 8  (hour 0–23, Cairo time)");
+  const { state, sha } = await readState(env);
+  state.morningHour = h;
+  await writeState(env, state, sha, `Set morning time to ${h}:00`);
+  return sendMessage(env, `⏰ Morning card time set to ${String(h).padStart(2, "0")}:00 Cairo. ✅`);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════
-//  TIMERS
+//  TIMERS  (cron fires every :00 and :30; we act at the right Cairo time)
 // ═══════════════════════════════════════════════════════════════════════════
 async function handleSchedule(env) {
-  const now = cairoNow(); // real Cairo time (daylight saving handled automatically)
   try {
-    if (now.hour === 7) return await doMorning(env, now.date);
-    if (now.hour === 20 && now.minute === 30) return await doEvening(env, now.date);
+    const now = cairoNow(); // real Cairo time (daylight saving handled automatically)
+    const { state, sha } = await readState(env);
+    if (state.paused) return; // vacation mode — send nothing
+    const morningHour = state.morningHour ?? 7;
+    const reminderHour = state.reminderHour ?? 20;
+    const reminderMinute = state.reminderMinute ?? 30;
+    if (now.hour === morningHour && now.minute === 0) return await doMorning(env, state, sha, now.date);
+    if (now.hour === reminderHour && now.minute === reminderMinute) return await doEvening(env, state, sha, now.date);
   } catch (e) {
     console.log("schedule error:", e);
   }
 }
 
-async function doMorning(env, today) {
-  const { state, sha } = await readState(env);
+async function doMorning(env, state, sha, today) {
   if (state.lastMorningSentDate === today) return; // don't send twice
   const card = await getDayCard(env, state.currentDay);
   const msg = card
@@ -174,8 +263,7 @@ async function doMorning(env, today) {
   await writeState(env, state, sha, `Morning card sent (${today})`);
 }
 
-async function doEvening(env, today) {
-  const { state, sha } = await readState(env);
+async function doEvening(env, state, sha, today) {
   if (state.lastCompletedDate === today || state.lastReminderSentDate === today) return;
   await sendMessage(env, `⏰ Evening check-in: did you study today? Reply /done to keep your 🔥 streak (${state.streak}) alive. You've got this! 💪`);
   state.lastReminderSentDate = today;
@@ -185,8 +273,6 @@ async function doEvening(env, today) {
 // ═══════════════════════════════════════════════════════════════════════════
 //  HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
-
-// Send a plain-text Telegram message (bare URLs auto-link; nothing can break).
 async function sendMessage(env, text) {
   const res = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
@@ -197,23 +283,16 @@ async function sendMessage(env, text) {
   return res;
 }
 
-// Turn a lesson card into a clean Telegram message.
 function formatCard(dayNum, card) {
   const header = `📚 Day ${dayNum}${card.meta.title ? " — " + card.meta.title : ""}` +
     (card.meta.phase ? `\n(Phase ${card.meta.phase})` : "");
   return `${header}\n\n${toTelegram(card.body)}`;
 }
 
-// Make markdown readable in Telegram: [label](url) -> "label: url", drop ** and `.
 function toTelegram(md) {
-  return md
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2")
-    .replace(/\*\*/g, "")
-    .replace(/`/g, "")
-    .trim();
+  return md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, "$1: $2").replace(/\*\*/g, "").replace(/`/g, "").trim();
 }
 
-// Current time in Cairo, DST-correct (the Intl database knows Egypt's rules).
 function cairoNow() {
   const p = new Intl.DateTimeFormat("en-GB", {
     timeZone: "Africa/Cairo",
@@ -224,14 +303,12 @@ function cairoNow() {
   return { date: `${g("year")}-${g("month")}-${g("day")}`, hour: +g("hour"), minute: +g("minute"), weekday: g("weekday") };
 }
 
-// The day before a given YYYY-MM-DD (noon avoids any timezone edge cases).
 function prevDate(dateStr) {
   const d = new Date(dateStr + "T12:00:00Z");
   d.setUTCDate(d.getUTCDate() - 1);
   return d.toISOString().slice(0, 10);
 }
 
-// ── GitHub Contents API helpers ──────────────────────────────────────────────
 function ghHeaders(env) {
   return {
     Authorization: `Bearer ${env.GITHUB_TOKEN}`,
@@ -241,7 +318,6 @@ function ghHeaders(env) {
   };
 }
 
-// Read a file: returns { text, sha } or null if it doesn't exist.
 async function githubGet(env, path) {
   const url = `${GITHUB_API}/repos/${env.GITHUB_REPO}/contents/${path}?ref=${env.GITHUB_BRANCH}`;
   const res = await fetch(url, { headers: ghHeaders(env) });
@@ -251,7 +327,6 @@ async function githubGet(env, path) {
   return { text: b64ToUtf8(data.content), sha: data.sha };
 }
 
-// Write (commit) a file. Pass the current sha so GitHub knows what we're updating.
 async function githubPut(env, path, text, message, sha) {
   const body = { message, content: utf8ToB64(text), branch: env.GITHUB_BRANCH };
   if (sha) body.sha = sha;
@@ -279,7 +354,6 @@ async function getDayCard(env, dayNum) {
   return parseDayFile(f.text);
 }
 
-// Split "---frontmatter---\nbody" into { meta, body }.
 function parseDayFile(text) {
   const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/);
   if (!m) return { meta: {}, body: text.trim() };
@@ -291,10 +365,9 @@ function parseDayFile(text) {
   return { meta, body: m[2].trim() };
 }
 
-// Add a line to the top of the Daily log section in PROGRESS.md.
 async function addProgressLine(env, line) {
   const f = await githubGet(env, PROGRESS_PATH);
-  if (!f) return; // PROGRESS.md optional; don't crash if missing
+  if (!f) return;
   let text = f.text;
   const heading = "## 📝 Daily log";
   const idx = text.indexOf(heading);
@@ -307,7 +380,6 @@ async function addProgressLine(env, line) {
   await githubPut(env, PROGRESS_PATH, text, "Study Buddy: update daily log", f.sha);
 }
 
-// UTF-8 safe base64 (so emojis survive the trip to/from GitHub).
 function b64ToUtf8(b64) {
   const bin = atob(b64.replace(/\n/g, ""));
   const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
