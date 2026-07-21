@@ -65,19 +65,17 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-222.md`
-  (**Weeks 1–37: Phases 0, 1, 2, 3, 4, and 5 ALL complete**). All **free-first**.
-  Buffer ≈ **37 weeks (~8.5 months)** ahead.
-  - Phase 5 (Wk33–37): build the raw agent loop from scratch → decode Kiro → tools +
-    selection → memory + planning/reflection → frameworks (LangGraph/CrewAI) +
-    multi-agent + guardrails + evaluation → domain-agent capstone + `why-agents-decide.md`
-    (Milestone 6).
-- ⬜ **Not yet generated:** Weeks 38–52 (rest of Phase 5 buffer weeks + Phase 6).
-  **NOTE:** full-plan.md originally scheduled Phase 5 as Wk36–43 and Phase 6 as Wk44–52.
-  Content has been generated more compactly — Phase 5 is COMPLETE at Wk37 (day-222).
-  Next batch: begin **Phase 6 — Shipping Products + Architecture** (deploy on Cloudflare,
-  FastAPI, cost/latency/eval, safety, then the architect lens + flagship capstone,
-  Milestone 7). Free-first. This is the FINAL phase (~6 weeks) to reach day-~270.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-240.md`
+  (**Weeks 1–40**: Phases 0–5 complete + Phase 6 through safety). All **free-first**.
+  Buffer ≈ **40 weeks (~9 months)** ahead.
+  - Phase 6 so far (Wk38–40): deployment (Cloudflare/HF Spaces/Streamlit) + secrets +
+    FastAPI + streaming → cost/latency + caching + eval sets + monitoring/logging →
+    safety (input validation, privacy, bias, moderation, responsible-AI checklist).
+- ⬜ **Not yet generated:** Weeks 41–42 (the FINAL two weeks).
+  Next batch (FINAL): **Week 41** — the architect lens (problem→solution mapping, RAG vs
+  fine-tune vs agent, tradeoffs, build-vs-buy, evaluating new tools) + **Week 42** —
+  flagship capstone (design+build+deploy+document one real AI product) → **Milestone 7 =
+  ENTIRE CURRICULUM COMPLETE (day-252).** Free-first.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
