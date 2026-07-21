@@ -52,29 +52,31 @@ plan/
   tools.md           → deep tool catalog (Kiro, GitHub, z.ai, Supabase, Cloudflare…)
   best-resources.md  → best courses / certificates / diplomas with links
   daily-template.md  → template for new day cards
+learning-backlog.md  → /learn captures land here → turn into bonus lessons
 daily/
-  day-001.md … 006   → BOT-READY per-day cards (what the Telegram bot sends)
-  week-01/02/03.md   → human weekly cards (02 & 03 still need converting to day files)
+  day-001.md … day-252.md → the FULL curriculum, BOT-READY (what the Telegram bot sends)
+  week-01/02/03.md        → early human cards (superseded by day files — ignore)
 automation/          → the Study Buddy Telegram bot (BUILT & LIVE — see PROJECT-STATUS.md)
-  state.json         → live current day + streak (bot reads/writes)
-  worker/src/index.js → the Worker code (the brain)
+  state.json         → live current day + streak + paused + times (bot reads/writes)
+  worker/src/index.js → the Worker code (the brain), v2
 ```
 
-> **Content note:** the Telegram bot delivers `daily/day-XXX.md` files (3-digit,
-> global day number, with frontmatter). New content must be created as `day-XXX.md`
-> files, not just week files. Keep the buffer weeks ahead and bump
-> `automation/state.json`'s `totalDaysGenerated`.
+> **Content is COMPLETE (day-001 … day-252).** There is nothing left to generate.
+> The bot delivers `daily/day-XXX.md` files (3-digit day number, with frontmatter).
 
 ## 4. Your job when the learner returns
 
-1. **Read [`PROJECT-STATUS.md`](./PROJECT-STATUS.md)** and **`automation/state.json`** to
-   find the live current day + streak.
-2. **If today's card exists:** walk them through it (learn → practice → checklist).
-3. **Keep content ahead:** if the buffer is within ~1–2 weeks of `currentDay`, generate
-   the next batch of `day-XXX.md` cards using [`plan/daily-template.md`](./plan/daily-template.md)
-   and the map in [`plan/full-plan.md`](./plan/full-plan.md); bump `totalDaysGenerated`.
+1. **Read [`PROJECT-STATUS.md`](./PROJECT-STATUS.md)** and **`automation/state.json`**
+   (and `learning-backlog.md`) to find the live day/streak + any captured topics.
+2. **Support the current day:** walk them through it (learn → practice → checklist),
+   answer concept questions, encourage `/done`.
+3. **Turn backlog items into bonus lessons:** if `learning-backlog.md` has `/learn`
+   items, write **Kiro-quality bonus cards** for them (use the template + free-first
+   links), delivered as extras that do NOT disturb the day-001..252 sequence; then
+   remove the item from the backlog. (Content generation for the main plan is DONE.)
 4. **Commit directly to `main`.** ⚠️ **PULL before you PUSH** — the live Worker commits
    to this repo on its own, so a stale local copy will be rejected. Never commit secrets.
+   Run `node --check` on the Worker before asking the learner to re-paste it.
 
 ## 5. Rules for writing NEW day cards (critical for consistency)
 
