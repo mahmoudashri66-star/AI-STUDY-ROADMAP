@@ -65,17 +65,18 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-186.md`
-  (**Weeks 1–31**: Phases 0–3 complete + Phase 4 through retrieval). All **free-first**.
-  Buffer ≈ **31 weeks (~7 months)** ahead.
-  - Phase 4 so far (Wk28–31): API keys + first raw API call + params/roles/cost + Ollama
-    → prompt engineering (few-shot, reasoning, templates, A/B) → structured JSON output
-    + tool/function calling → embeddings retrieval + chunking + vector DB (Chroma) +
-    Supabase tool day.
-- ⬜ **Not yet generated:** Weeks 32–52 (rest of Phase 4 → Phases 5–6).
-  Next batch: **Week 32** — RAG end-to-end ("chat with my docs") + a simple UI
-  (Streamlit/Gradio) + Phase 4 capstone (Milestone 5). Then Phase 5 (AI agents — and
-  fully understanding Kiro). Free-first; note small API costs / Ollama option.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-192.md`
+  (**Weeks 1–32: Phases 0, 1, 2, 3, and 4 ALL complete**). All **free-first**.
+  Buffer ≈ **32 weeks (~7.5 months)** ahead.
+  - Phase 4 (Wk28–32): first API calls + params/cost → prompt engineering → structured
+    JSON + tool calling → embeddings retrieval + chunking + vector DB + Supabase →
+    **RAG end-to-end** + grounding/citations + Streamlit/Gradio UI + "chat with my docs"
+    capstone (Milestone 5).
+- ⬜ **Not yet generated:** Weeks 33–52 (Phases 5–6).
+  Next batch: **Week 33** — start of **Phase 5: AI Agents** (the agent loop from scratch
+  → tools → memory → planning → frameworks → guardrails → capstone + `why-agents-decide.md`
+  mapping onto Kiro). Then Phase 6 (shipping + architecture). Free-first: Hugging Face
+  Agents course (free cert), Vanderbilt "AI Agents in Python", LangGraph/CrewAI docs.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
