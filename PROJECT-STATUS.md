@@ -65,16 +65,16 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-054.md`
-  (**Weeks 1–9 = Phase 0 + ALL of Phase 1 Python, complete**). All **free-first**.
-  Buffer ≈ **9 weeks** ahead.
-  - Phase 0 (Wk1): understand AI + tools · Phase 1 (Wk2–9): variables→strings→lists→
-    loops→functions→errors→if/else→dicts→files→JSON→libraries→OOP→error-handling→
-    Git-deeper→capstone.
-- ⬜ **Not yet generated:** Weeks 10–52 (Phases 2–6).
-  Next batch to generate: **Week 10** — start of **Phase 2: How Machine Learning Works**
-  (data & pandas). Keep free-first (Andrew Ng ML Spec may be paid in Egypt → free
-  backups: 3Blue1Brown, Kaggle, scikit-learn docs, freeCodeCamp ML).
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-078.md`
+  (**Weeks 1–13**: Phase 0 + ALL Phase 1 + Phase 2 through overfitting/validation).
+  All **free-first**. Buffer ≈ **13 weeks** ahead.
+  - Phase 2 so far (Wk10–13): ML mental model → pandas/data → linear regression & loss
+    → sklearn fit/predict → gradient descent (built by hand) → learning rate →
+    train/test → overfitting/underfitting → cross-validation → full workflow.
+- ⬜ **Not yet generated:** Weeks 14–52 (rest of Phase 2 → Phases 3–6).
+  Next batch: **Week 14** — classification & logistic regression, then Wk15 evaluation
+  metrics, Wk16 unsupervised/clustering, Wk17 Phase 2 capstone. Keep free-first
+  (StatQuest, Kaggle Learn, scikit-learn docs, 3Blue1Brown).
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
