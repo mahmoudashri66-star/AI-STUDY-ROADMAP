@@ -63,19 +63,29 @@
 
 ---
 
-## 📚 Content status
+## 📚 Content status — ✅ COMPLETE
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-240.md`
-  (**Weeks 1–40**: Phases 0–5 complete + Phase 6 through safety). All **free-first**.
-  Buffer ≈ **40 weeks (~9 months)** ahead.
-  - Phase 6 so far (Wk38–40): deployment (Cloudflare/HF Spaces/Streamlit) + secrets +
-    FastAPI + streaming → cost/latency + caching + eval sets + monitoring/logging →
-    safety (input validation, privacy, bias, moderation, responsible-AI checklist).
-- ⬜ **Not yet generated:** Weeks 41–42 (the FINAL two weeks).
-  Next batch (FINAL): **Week 41** — the architect lens (problem→solution mapping, RAG vs
-  fine-tune vs agent, tradeoffs, build-vs-buy, evaluating new tools) + **Week 42** —
-  flagship capstone (design+build+deploy+document one real AI product) → **Milestone 7 =
-  ENTIRE CURRICULUM COMPLETE (day-252).** Free-first.
+- ✅ **The ENTIRE curriculum is generated: `daily/day-001.md` … `daily/day-252.md`**
+  (**Weeks 1–42, all 6 phases, front to back**). All **free-first**.
+- Phase 0 (Wk1): understand AI + tools
+- Phase 1 (Wk2–9): learn to code — Python
+- Phase 2 (Wk10–17): how machine learning works
+- Phase 3 (Wk18–27... generated compactly through Wk27/day-162): deep learning & LLMs (built a GPT)
+- Phase 4 (Wk28–32): building LLM apps — APIs, prompting, RAG
+- Phase 5 (Wk33–37): AI agents (+ decode Kiro)
+- Phase 6 (Wk38–42): shipping products + architecture (Milestone 7)
+- **7 milestones**, each capstone lands in a public repo (portfolio).
+
+### There is no more content to generate. 🎉
+The learner has the full ~9-month, day-by-day plan. The Telegram bot will deliver it
+Day 1 → Day 252 automatically. Future work is optional: refine cards based on how the
+learning actually goes, add Phase 4 polish (weekly summary, buffer alert), and support
+the learner day-to-day.
+
+### If continuing to support the learner:
+- Check `automation/state.json` for their live current day/streak.
+- Help with the actual day's material, debug the bot, or refine content.
+- Specialization paths (after day-252) are in `plan/full-plan.md`.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
