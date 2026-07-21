@@ -65,18 +65,17 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-102.md`
-  (**Weeks 1–17: Phase 0 + ALL Phase 1 + ALL Phase 2, complete**). All **free-first**.
-  Buffer ≈ **17 weeks (~4 months)** ahead.
-  - Phase 2 (Wk10–17): pandas/data → regression & loss → gradient descent (by hand) →
-    train/test & overfitting → classification & logistic regression → decision trees →
-    confusion matrix/precision/recall/F1 → clustering & feature engineering →
-    full ML capstone project.
-- ⬜ **Not yet generated:** Weeks 18–52 (Phases 3–6).
-  Next batch: **Week 18** — start of **Phase 3: Deep Learning & How LLMs Actually Work**
-  (neural networks → build by hand → PyTorch → embeddings → tokens → attention/
-  transformers → build a tiny GPT). Free-first: 3Blue1Brown, **Karpathy Zero-to-Hero**,
-  Jay Alammar's Illustrated Transformer, Hugging Face LLM course.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-126.md`
+  (**Weeks 1–21**: Phase 0 + Phase 1 + Phase 2 + Phase 3 through PyTorch).
+  All **free-first**. Buffer ≈ **21 weeks (~5 months)** ahead.
+  - Phase 3 so far (Wk18–21): what a neural net is (3B1B) → build a neuron/net by hand
+    (Karpathy micrograd) → gradients → backpropagation (built from scratch) →
+    training loop → activations → PyTorch tensors/autograd → rebuild the net in PyTorch.
+- ⬜ **Not yet generated:** Weeks 22–52 (rest of Phase 3 → Phases 4–6).
+  Next batch: **Week 22** — training deeper nets in PyTorch, then Wk23 embeddings,
+  Wk24 tokens/tokenization, Wk25–26 attention & transformers, Wk27 build a tiny GPT +
+  `how-llms-work.md` capstone. Free-first: Karpathy Zero-to-Hero, Jay Alammar's
+  Illustrated Transformer, Hugging Face LLM course, 3Blue1Brown.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
