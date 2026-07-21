@@ -65,17 +65,17 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-162.md`
-  (**Weeks 1–27: Phase 0 + Phase 1 + Phase 2 + ALL Phase 3, complete**). All **free-first**.
-  Buffer ≈ **27 weeks (~6.5 months)** ahead.
-  - Phase 3 (Wk18–27): neural nets → build by hand + backprop → PyTorch → training deep
-    nets → embeddings → tokens → attention/transformers → **build a tiny GPT (Karpathy)**
-    → pretraining/fine-tuning, hallucination → `how-llms-work.md` capstone (Milestone 4).
-- ⬜ **Not yet generated:** Weeks 28–52 (Phases 4–6).
-  Next batch: **Week 28** — start of **Phase 4: Building with LLMs (APIs, Prompting, RAG)**.
-  This is where the learner makes their FIRST real API calls (z.ai/OpenAI/Anthropic),
-  learns prompt engineering, embeddings for retrieval, vector DBs, and builds a RAG
-  "chat with my docs" app. Free-first + note API costs (small; can use free tiers/Ollama).
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-186.md`
+  (**Weeks 1–31**: Phases 0–3 complete + Phase 4 through retrieval). All **free-first**.
+  Buffer ≈ **31 weeks (~7 months)** ahead.
+  - Phase 4 so far (Wk28–31): API keys + first raw API call + params/roles/cost + Ollama
+    → prompt engineering (few-shot, reasoning, templates, A/B) → structured JSON output
+    + tool/function calling → embeddings retrieval + chunking + vector DB (Chroma) +
+    Supabase tool day.
+- ⬜ **Not yet generated:** Weeks 32–52 (rest of Phase 4 → Phases 5–6).
+  Next batch: **Week 32** — RAG end-to-end ("chat with my docs") + a simple UI
+  (Streamlit/Gradio) + Phase 4 capstone (Milestone 5). Then Phase 5 (AI agents — and
+  fully understanding Kiro). Free-first; note small API costs / Ollama option.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
