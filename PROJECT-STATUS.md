@@ -65,16 +65,17 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-150.md`
-  (**Weeks 1–25**: Phase 0 + Phase 1 + Phase 2 + Phase 3 through attention/transformers).
-  All **free-first**. Buffer ≈ **25 weeks (~6 months)** ahead.
-  - Phase 3 so far (Wk18–25): neural nets → build by hand + backprop (Karpathy) →
-    PyTorch → training deep nets → embeddings (+ semantic search) → tokens/tokenization
-    → attention, Q/K/V, multi-head, the transformer block.
-- ⬜ **Not yet generated:** Weeks 26–52 (rest of Phase 3 → Phases 4–6).
-  Next batch: **Week 26** — build a tiny GPT with Karpathy ("Let's build GPT"), then
-  Wk27 Phase 3 capstone + `how-llms-work.md` (Milestone 4). Then Phase 4 (LLM apps/
-  APIs/RAG). Free-first: Karpathy Zero-to-Hero, Hugging Face LLM course.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-162.md`
+  (**Weeks 1–27: Phase 0 + Phase 1 + Phase 2 + ALL Phase 3, complete**). All **free-first**.
+  Buffer ≈ **27 weeks (~6.5 months)** ahead.
+  - Phase 3 (Wk18–27): neural nets → build by hand + backprop → PyTorch → training deep
+    nets → embeddings → tokens → attention/transformers → **build a tiny GPT (Karpathy)**
+    → pretraining/fine-tuning, hallucination → `how-llms-work.md` capstone (Milestone 4).
+- ⬜ **Not yet generated:** Weeks 28–52 (Phases 4–6).
+  Next batch: **Week 28** — start of **Phase 4: Building with LLMs (APIs, Prompting, RAG)**.
+  This is where the learner makes their FIRST real API calls (z.ai/OpenAI/Anthropic),
+  learns prompt engineering, embeddings for retrieval, vector DBs, and builds a RAG
+  "chat with my docs" app. Free-first + note API costs (small; can use free tiers/Ollama).
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
