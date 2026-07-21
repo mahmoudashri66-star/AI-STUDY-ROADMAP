@@ -65,10 +65,11 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-018.md` (Weeks 1–3:
-  Phase 0 + start of Phase 1 Python). All **free-first**. Buffer ≈ 3 weeks ahead.
-- ⬜ **Not yet generated as daily cards:** Weeks 4–52 (rest of Phase 1 → Phases 2–6).
-  Next batch to generate: **Week 4** (deeper Python: lists & dictionaries).
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-024.md` (Weeks 1–4:
+  Phase 0 + Phase 1 Python through dictionaries/files/JSON). All **free-first**.
+  Buffer ≈ 4 weeks ahead.
+- ⬜ **Not yet generated as daily cards:** Weeks 5–52 (rest of Phase 1 → Phases 2–6).
+  Next batch to generate: **Week 5** (using libraries: `pip`/`import` + intro to objects).
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
