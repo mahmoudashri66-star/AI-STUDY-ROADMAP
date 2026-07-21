@@ -65,16 +65,18 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-078.md`
-  (**Weeks 1–13**: Phase 0 + ALL Phase 1 + Phase 2 through overfitting/validation).
-  All **free-first**. Buffer ≈ **13 weeks** ahead.
-  - Phase 2 so far (Wk10–13): ML mental model → pandas/data → linear regression & loss
-    → sklearn fit/predict → gradient descent (built by hand) → learning rate →
-    train/test → overfitting/underfitting → cross-validation → full workflow.
-- ⬜ **Not yet generated:** Weeks 14–52 (rest of Phase 2 → Phases 3–6).
-  Next batch: **Week 14** — classification & logistic regression, then Wk15 evaluation
-  metrics, Wk16 unsupervised/clustering, Wk17 Phase 2 capstone. Keep free-first
-  (StatQuest, Kaggle Learn, scikit-learn docs, 3Blue1Brown).
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-102.md`
+  (**Weeks 1–17: Phase 0 + ALL Phase 1 + ALL Phase 2, complete**). All **free-first**.
+  Buffer ≈ **17 weeks (~4 months)** ahead.
+  - Phase 2 (Wk10–17): pandas/data → regression & loss → gradient descent (by hand) →
+    train/test & overfitting → classification & logistic regression → decision trees →
+    confusion matrix/precision/recall/F1 → clustering & feature engineering →
+    full ML capstone project.
+- ⬜ **Not yet generated:** Weeks 18–52 (Phases 3–6).
+  Next batch: **Week 18** — start of **Phase 3: Deep Learning & How LLMs Actually Work**
+  (neural networks → build by hand → PyTorch → embeddings → tokens → attention/
+  transformers → build a tiny GPT). Free-first: 3Blue1Brown, **Karpathy Zero-to-Hero**,
+  Jay Alammar's Illustrated Transformer, Hugging Face LLM course.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
