@@ -65,11 +65,16 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-024.md` (Weeks 1–4:
-  Phase 0 + Phase 1 Python through dictionaries/files/JSON). All **free-first**.
-  Buffer ≈ 4 weeks ahead.
-- ⬜ **Not yet generated as daily cards:** Weeks 5–52 (rest of Phase 1 → Phases 2–6).
-  Next batch to generate: **Week 5** (using libraries: `pip`/`import` + intro to objects).
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-054.md`
+  (**Weeks 1–9 = Phase 0 + ALL of Phase 1 Python, complete**). All **free-first**.
+  Buffer ≈ **9 weeks** ahead.
+  - Phase 0 (Wk1): understand AI + tools · Phase 1 (Wk2–9): variables→strings→lists→
+    loops→functions→errors→if/else→dicts→files→JSON→libraries→OOP→error-handling→
+    Git-deeper→capstone.
+- ⬜ **Not yet generated:** Weeks 10–52 (Phases 2–6).
+  Next batch to generate: **Week 10** — start of **Phase 2: How Machine Learning Works**
+  (data & pandas). Keep free-first (Andrew Ng ML Spec may be paid in Egypt → free
+  backups: 3Blue1Brown, Kaggle, scikit-learn docs, freeCodeCamp ML).
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
