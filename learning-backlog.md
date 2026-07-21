@@ -5,4 +5,3 @@ Your mentor (Kiro) turns these into **bonus lessons** — they don't disrupt you
 daily sequence.
 
 <!-- The bot appends items below as "- YYYY-MM-DD — topic". /backlog lists them, /drop <n> removes one. -->
-- 2026-07-21 — how AI agents use memory
