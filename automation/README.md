@@ -119,3 +119,11 @@ Beyond the daily loop, Study Buddy now lets you steer your learning from Telegra
 **How backlog → lessons works:** you capture freely with `/learn`; your mentor (Kiro)
 turns backlog items into high-quality **bonus lessons** at the right time (respecting
 prerequisites), so your main sequence and quality are never disrupted.
+
+
+### 🗺️ `/index` — see your whole curriculum
+
+- `/index` → the 7-phase map (day ranges + one-liners) and **where you are now**.
+- `/index <0–6>` → drill into a phase to see its weeks.
+
+(The phase/week structure is fixed, so `/index` is instant and always works.)

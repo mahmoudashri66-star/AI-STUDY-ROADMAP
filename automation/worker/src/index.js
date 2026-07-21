@@ -24,6 +24,24 @@ const BACKLOG_PATH = "learning-backlog.md";
 const dayPath = (n) => `daily/day-${String(n).padStart(3, "0")}.md`;
 const GITHUB_API = "https://api.github.com";
 
+// The full curriculum map (for /index). Structure is fixed, so it's kept here.
+const PHASES = [
+  { n: 0, days: "1–6", start: 1, end: 6, title: "Understand AI + your tools",
+    weeks: ["W1 AI/ML/LLM/agents + your tools (Kiro, GitHub, z.ai)"] },
+  { n: 1, days: "7–54", start: 7, end: 54, title: "Learn to code — Python",
+    weeks: ["W2 First code (variables, strings, lists, loops)", "W3 Functions, reading errors, if/else", "W4 Dictionaries, files, JSON", "W5 Libraries, pip, APIs preview", "W6 Objects & classes (OOP)", "W7 Robust programs (errors, testing)", "W8 Git & GitHub deeper", "W9 Capstone CLI tool"] },
+  { n: 2, days: "55–102", start: 55, end: 102, title: "How machine learning works",
+    weeks: ["W10 Data & pandas", "W11 Linear regression & loss", "W12 Gradient descent (how models learn)", "W13 Train/test & overfitting", "W14 Classification", "W15 Evaluation metrics", "W16 Clustering & features", "W17 ML capstone"] },
+  { n: 3, days: "103–162", start: 103, end: 162, title: "Deep learning & how LLMs work",
+    weeks: ["W18 Neural networks", "W19 Build a net by hand (Karpathy)", "W20 Backpropagation", "W21 PyTorch", "W22 Training deep nets", "W23 Embeddings", "W24 Tokens", "W25 Attention & transformers", "W26 Build a tiny GPT", "W27 how-LLMs-work capstone"] },
+  { n: 4, days: "163–192", start: 163, end: 192, title: "Building LLM apps (APIs, RAG)",
+    weeks: ["W28 First API calls", "W29 Prompt engineering", "W30 Structured output & tools", "W31 Embeddings retrieval & vector DBs", "W32 RAG 'chat with my docs' capstone"] },
+  { n: 5, days: "193–222", start: 193, end: 222, title: "AI agents (understand Kiro)",
+    weeks: ["W33 Build the agent loop + decode Kiro", "W34 Multiple tools", "W35 Memory & planning", "W36 Frameworks, multi-agent, guardrails", "W37 Agent capstone"] },
+  { n: 6, days: "223–252", start: 223, end: 252, title: "Ship products + architecture",
+    weeks: ["W38 Deployment & your own API", "W39 Cost, latency & evaluation", "W40 Safety & responsible AI", "W41 The architect lens", "W42 Flagship capstone → Milestone 7"] },
+];
+
 export default {
   // ── Entry point #1: a web request (health check OR Telegram webhook) ────────
   async fetch(request, env, ctx) {
@@ -65,6 +83,7 @@ async function handleCommand(text, env) {
       // learning
       case "/start":  return sendMessage(env, "👋 Welcome to Study Buddy!\n\n" + helpText());
       case "/today":  return await handleToday(env);
+      case "/index":  return await handleIndex(env, args);
       case "/status": return await handleStatus(env);
       case "/done":   return await handleDone(env);
       case "/note":   return await handleNote(env, args);
@@ -95,6 +114,7 @@ function helpText() {
     "📚 Learning\n" +
     "▶️ /today — today's lesson\n" +
     "✅ /done — finish today (streak +1)\n" +
+    "🗺️ /index — see the whole curriculum map\n" +
     "📊 /status — day, streak & progress\n" +
     "📝 /note <text> — save a reflection\n" +
     "🛌 /skip — rest day (streak stays safe)\n\n" +
@@ -115,6 +135,25 @@ async function handleToday(env) {
   const card = await getDayCard(env, state.currentDay);
   if (!card) return sendMessage(env, `😅 Day ${state.currentDay} isn't written yet. Ask your mentor to generate more content!`);
   return sendMessage(env, formatCard(state.currentDay, card));
+}
+
+async function handleIndex(env, arg) {
+  const { state } = await readState(env);
+  const day = state.currentDay;
+  // Drill-down: /index <0-6> shows one phase's weeks.
+  if (arg) {
+    const p = PHASES.find((x) => x.n === parseInt(arg, 10));
+    if (!p) return sendMessage(env, "Use /index 0 to 6 to open a phase — or just /index for the full map.");
+    return sendMessage(env, `🗺️ Phase ${p.n} · Days ${p.days}\n${p.title}\n\n${p.weeks.join("\n")}\n\n◀️ /index for the full map.`);
+  }
+  // Overview: all 7 phases + where you are.
+  const cur = PHASES.find((x) => day >= x.start && day <= x.end) || PHASES[PHASES.length - 1];
+  const lines = PHASES.map((p) =>
+    `Phase ${p.n} · Days ${p.days} — ${p.title}${p === cur ? "  ⬅️ you're here" : ""}`
+  ).join("\n");
+  return sendMessage(env,
+    `🗺️ Your AI Journey — the full map\n\nYou're on Day ${day}.\n\n${lines}\n\n` +
+    `🔎 /index <0-6> to see a phase's weeks\n📥 /backlog for your captured bonus topics`);
 }
 
 async function handleStatus(env) {
