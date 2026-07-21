@@ -140,3 +140,24 @@ automation/
     wrangler.toml    → config + cron triggers
     README.md        → setup/deploy guide + build progress
 ```
+
+
+---
+
+## ⚠️ Access note (added after Day 1) — Coursera Plus in Egypt
+
+Discovered that **Coursera Plus does not cover all courses in Egypt.** *Generative AI
+for Everyone* showed **$31** (certificate) with **no Audit option**, only slow Financial
+Aid — despite an active Plus subscription.
+
+**Actions taken:**
+- Updated `daily/day-001.md`, `day-002.md`, `day-006.md` to **free-first** resources
+  (Google's free "Introduction to Generative AI" + 3Blue1Brown + auditable "AI For Everyone").
+- Added a free-access policy + reliable free sources to `plan/best-resources.md`.
+
+**Still TODO (important):**
+- **Verify whether `AI Python for Beginners` (Phase 1 anchor) is Plus-covered/auditable
+  for the learner in Egypt.** If not, switch Phase 1 to a free backbone (freeCodeCamp
+  Python + py4e.com) before generating those day cards.
+- Continue **free-first** when generating all future daily content; Coursera only where
+  genuinely included/auditable or where a certificate matters.

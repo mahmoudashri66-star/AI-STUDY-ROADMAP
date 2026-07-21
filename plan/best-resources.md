@@ -92,3 +92,28 @@ Stack these for credentials that look strong and teach real skills:
    something doesn't click — not to watch everything.
 3. Finish for the **certificate** only when the learning is done — the skill is the
    point; the certificate is the bonus.
+
+
+---
+
+## ⚠️ Free-access note (Coursera Plus coverage in Egypt)
+
+**Coursera Plus does NOT cover every course in Egypt.** Some courses (e.g., *Generative
+AI for Everyone*) show a paid price even with an active Plus subscription, and may not
+offer a free Audit option — only slow (~15-day) Financial Aid.
+
+**Our policy going forward:** learning is never blocked by money.
+- Every lesson should have a **free primary option**; Coursera is used only where it's
+  actually included/auditable for you, or where a certificate genuinely matters.
+- **Skip Financial Aid for short intro courses** — use a free equivalent instead. Save
+  Financial Aid only for a big flagship certificate you truly want.
+
+**Reliable free go-to sources** (lean on these when Plus falls short):
+- Google Cloud Skills Boost (free) — [cloudskillsboost.google](https://www.cloudskillsboost.google)
+- freeCodeCamp (free) — [freecodecamp.org](https://www.freecodecamp.org) & their YouTube
+- Hugging Face courses (free, with certificates) — [huggingface.co/learn](https://huggingface.co/learn)
+- Andrej Karpathy, 3Blue1Brown, fast.ai — all free (see lists above)
+
+**To verify before Phase 1:** confirm whether **AI Python for Beginners** (the Phase 1
+anchor) is Plus-covered / auditable for you. If not, the free backbone is
+**freeCodeCamp's "Python for Beginners"** + **py4e.com** — both excellent and free.
