@@ -65,17 +65,19 @@
 
 ## 📚 Content status
 
-- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-210.md`
-  (**Weeks 1–35**: Phases 0–4 complete + Phase 5 through memory). All **free-first**.
-  Buffer ≈ **35 weeks (~8 months)** ahead.
-  - Phase 5 so far (Wk33–35): what an agent is (think→act→observe) → **build the raw
-    loop from scratch** → visible reasoning (ReAct) → **decode Kiro's loop** → multiple
-    tools + selection + real-world tools + error handling → short/long-term memory +
-    context management + planning/reflection.
-- ⬜ **Not yet generated:** Weeks 36–52 (rest of Phase 5 → Phase 6).
-  Next batch: **Week 36** — agent frameworks (LangGraph/CrewAI) + multi-agent +
-  guardrails, then Wk37 Phase 5 capstone (domain agent + `why-agents-decide.md`,
-  Milestone 6). Then Phase 6 (ship + architect). Free-first.
+- ✅ **Bot-ready per-day cards:** `daily/day-001.md` … `daily/day-222.md`
+  (**Weeks 1–37: Phases 0, 1, 2, 3, 4, and 5 ALL complete**). All **free-first**.
+  Buffer ≈ **37 weeks (~8.5 months)** ahead.
+  - Phase 5 (Wk33–37): build the raw agent loop from scratch → decode Kiro → tools +
+    selection → memory + planning/reflection → frameworks (LangGraph/CrewAI) +
+    multi-agent + guardrails + evaluation → domain-agent capstone + `why-agents-decide.md`
+    (Milestone 6).
+- ⬜ **Not yet generated:** Weeks 38–52 (rest of Phase 5 buffer weeks + Phase 6).
+  **NOTE:** full-plan.md originally scheduled Phase 5 as Wk36–43 and Phase 6 as Wk44–52.
+  Content has been generated more compactly — Phase 5 is COMPLETE at Wk37 (day-222).
+  Next batch: begin **Phase 6 — Shipping Products + Architecture** (deploy on Cloudflare,
+  FastAPI, cost/latency/eval, safety, then the architect lens + flagship capstone,
+  Milestone 7). Free-first. This is the FINAL phase (~6 weeks) to reach day-~270.
 - 🗺️ The **full year skeleton** is defined in [`plan/full-plan.md`](./plan/full-plan.md).
 - `automation/state.json`: `currentDay: 1`, `streak: 0`, `totalDaysGenerated: 6`.
 
